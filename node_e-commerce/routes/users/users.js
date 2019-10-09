@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
+// HOMEWORK: importing authChecker
 const authChecker = require('./controllers/authChecker');
-
 const userController = require('./controllers/userController');
 
 /* GET users listing. */
@@ -13,14 +13,18 @@ router.get('/signup', (req, res) => {
   res.render('auth/signup', { errors: [] });
 });
 
+
+// HOMEWORK: authChecker as middleware
 router.post('/signup', authChecker, (req, res) => {
+    // HOMEWORK: checking the form field errors before database
   let errors = req.validationErrors();
     if (errors) {
-        res.render('auth/signup', { error_msg: true, errors: errors });
+        res.render('auth/signup', { errors: errors });
     }
+
   userController
     .signup(req.body)
-    .then(user => {
+    .then(() => {
       res.redirect('/');
     })
     .catch(error => {
