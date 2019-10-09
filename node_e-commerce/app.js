@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let mongoose = require('mongoose')
+let expressValidator = require('express-validator');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users/users');
@@ -33,13 +35,38 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(
+    expressValidator({
+        errorFormatter: (param, message, value) => {
+            let namespace = param.split('.');
+            let root = namespace.shift();
+            let formParam = root;
+
+            while (namespace.length) {
+                formParam += '[' + namespace.shift() + ']';
+            }
+
+            return {
+                param: formParam,
+                message: message,
+                value: value
+            };
+            
+        }
+    })
+);
+
+
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
