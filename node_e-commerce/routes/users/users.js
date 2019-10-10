@@ -10,7 +10,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/signup', (req, res) => {
-  res.render('auth/signup', { errors: [] });
+    if (req.isAuthenticated()) return res.redirect('/')
+    
+  res.render('auth/signup', { errors: req.flash('errors'), error_msg: null });
 });
 
 
@@ -33,17 +35,25 @@ router.post('/signup', authChecker, (req, res) => {
 });
 
 router.get('/signin', (req, res) => {
+    req.flash('testerror', 'flashpoop')
   res.render('auth/signin', { errors: [] });
 });
 
 router.post('/signin', (req, res) => {
+
+    console.log('data coming from flash: ', req.flash('testerror'));
+    console.log('data coming from flash: ', req.flash('testerror'));
+    
+
   userController
     .singin(req.body)
     .then(user => {
+        console.log(user);
+        
       res.redirect('/');
     })
     .catch(error => {
-      console.log(error);
+    //   console.log(error);
       res.render('auth/signin', { errors: [error] });
     });
 });

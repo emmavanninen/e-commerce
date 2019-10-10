@@ -3,9 +3,16 @@ const bcrypt = require('bcryptjs');
 
 
 module.exports = {
-  signup: params => {
+  signup: (req, res, next) => {
     return new Promise((resolve, reject) => {
-      User.findOne({ email: params.email })
+        let errorValidate = req.ValidationErrors()  
+
+        if(errorValidate){
+            res.render('auth/signup', {errors: errorValidate})
+
+            return
+        }
+      User.findOne({ email: req.body.email })
         .then(user => {
           if (user) {
             let errors = {};
@@ -15,9 +22,9 @@ module.exports = {
             reject(errors);
           } else {
             const newUser = new User();
-            newUser.profile.name = params.name;
-            newUser.password = params.password;
-            newUser.email = params.email;
+            newUser.password = req.body.password;
+            newUser.email = req.body.email;
+            newUser.profile.name = req.body.name;
 
             bcrypt.genSalt(10, (err, salt) => {
               bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -44,7 +51,7 @@ module.exports = {
       User.findOne({ email: params.email })
 
         .then(user => {
-          console.log(user);
+        //   console.log(user);
           if (user === null) {
             let errors = {};
             errors.message = 'Wrong email';
@@ -52,7 +59,6 @@ module.exports = {
 
             reject(errors);
           } else {
-            // console.log(user);
 
             bcrypt.compare(params.password, user.password, function(
               err,
