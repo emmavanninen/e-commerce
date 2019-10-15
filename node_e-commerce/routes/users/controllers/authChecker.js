@@ -1,12 +1,12 @@
 /// HOMEWORK: created authChecker to check form fields not to be empty/email/etc
 
 
-const authChecker = (req, res, next) => {
-    emailChecker(req)
-    passwordChecker(req)
+// const authChecker = (req, res, next) => {
+//     emailChecker(req)
+//     passwordChecker(req)
 
-    next()
-}
+//     next()
+// }
 
 const emailChecker = (email) => { 
     

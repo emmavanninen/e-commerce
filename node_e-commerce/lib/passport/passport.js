@@ -31,7 +31,7 @@ passport.deserializeUser(function(id, done) {
         done(null, user._id)
      })
      passport.deserializeUser((id, done) =>{
-         User.findOne(id, (error, user)=>{
+         User.findById(id, (error, user)=>{
              done(error, user)
          })
      })
