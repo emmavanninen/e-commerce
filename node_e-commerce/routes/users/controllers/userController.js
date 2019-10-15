@@ -87,5 +87,13 @@ module.exports = {
                 })
                 .catch(err => reject(err))
         })
+    },
+    editProfile: (req, res, next) => {
+        User.findOne({ email: params.email })
+        
+        user.profile.name = req.body.name
+        user.email = req.body.email
+        user.address = req.body.address
+        user.password = req.body.password
     }
 }

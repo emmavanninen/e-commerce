@@ -48,7 +48,7 @@ passport.deserializeUser(function(id, done) {
             bcrypt.compare(password, user.password)
                 .then(result =>{
                     if (!result) {
-                        return done(null, false, req.flash('loginMsg', 'Wrong password or email!'))
+                        return done(null, false, req.flash('loginMsg', 'Wrong password!'))
                         } else {
                             return done(null, user)
                         }

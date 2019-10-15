@@ -79,7 +79,9 @@ app.use((req, res, next) => {
     res.locals.user = req.user
 
     res.locals.errors = req.flash('errors')
+    res.locals.success = req.flash('success')
     res.locals.errorValidate = req.flash('errorValidate')
+    res.locals.loginMsg = req.flash('loginMsg')
 
     next()
 })
