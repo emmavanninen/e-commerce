@@ -5,6 +5,8 @@ var router = express.Router();
 const userController = require('./controllers/userController');
 const signupValidation = require('./utils/signupValidation')
 const passport = require('passport')
+const User = require('./models/User')
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -46,11 +48,26 @@ router.get('/edit-profile', (req, res) => {
     res.render('account/edit-profile')
 })
 
-router.post('/edit-profile', (req, res) => {
-    res.render('/account/edit-profile')
-    console.log(user);
+router.post('/:id', (req, res) => {
+    let body = {
+        profile: {name: req.body.name,
+        picture: "",
+    },
+        email: req.body.email,
+        address: req.body.address,
+        password: req.body.password
+    }
     
-    // res.redirect('account/edit-profile')
+    // let body = 
+
+    User.findByIdAndUpdate(req.params.id, body, {new: true}, (err, result) => {
+    if(err){
+        throw new Error(err)        
+    } else {
+        
+        res.render('account/profile')
+    }
+   })
 })
 
 
