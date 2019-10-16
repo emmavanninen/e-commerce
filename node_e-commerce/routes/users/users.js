@@ -45,30 +45,47 @@ router.get('/edit-profile', (req, res) => {
 })
 
 router.get('/edit-profile', (req, res) => {
-    res.render('account/edit-profile')
+    if(!req.isAuthenticated()) res.redirect('/api/users/signin')
+    res.render('account/profile')
 })
 
-router.post('/:id', (req, res) => {
-    let body = {
-        profile: {name: req.body.name,
-        picture: "",
-    },
-        email: req.body.email,
-        address: req.body.address,
-        password: req.body.password
-    }
+router.put('/edit-profile', (req, res) => {
+    console.log(`!!!!:`);
     
-    // let body = 
-
-    User.findByIdAndUpdate(req.params.id, body, {new: true}, (err, result) => {
-    if(err){
-        throw new Error(err)        
-    } else {
+   userController.editProfile(req.body, req.user._id)
+    .then(user => {
+        req.flash('success', 'Profile updated')
+        res.redirect('/api/users/edit-profile')
+    })
+    .catch(err => {
+        req.flash('errors', err)
         
-        res.render('account/profile')
-    }
-   })
+        res.redirect('/api/users/edit-profile')
+    })
 })
+
+// (req, res) => {
+
+
+
+//     let body = {
+//         profile: {name: req.body.name,
+//         picture: "",
+//     },
+//         email: req.body.email,
+//         address: req.body.address,
+//         password: req.body.password
+//     }
+
+//     User.findByIdAndUpdate(req.params.id, body, {new: true}, (err, result) => {
+//     if(err){
+//         throw new Error(err)        
+//     } else {
+//         req.flash('success', 'User have been updated')
+//         res.render('account/profile')
+//     }
+//    })
+// })
 
 
 module.exports = router;

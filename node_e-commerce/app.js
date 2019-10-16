@@ -6,6 +6,7 @@ const session = require('express-session')
 const mongoose = require('mongoose')
 const passport = require('passport')
 const createError = require('http-errors');
+const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
 
@@ -35,6 +36,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'))
 
 app.use(session({
     resave: true,
