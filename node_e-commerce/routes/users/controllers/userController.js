@@ -64,26 +64,57 @@ module.exports = {
         return new Promise((resolve, reject) =>{
             User.findById(id)
                 .then(user => {
-                    if(params.name !== '') user.profile.name = params.name
-                    if(params.address !== '') user.address = params.address
-                    if(params.email !== '') user.email = params.email
+                    
+                    if ( params.password !== '' ||
+                         params.password_2 !== '' ||
+                         params.oldPassword !== '' ){
 
-                    if(params.password !== ''){
-                        hasher.create(params.password)
-                            .then(hash =>{
-                                user.password = hash
+
+                            if(params.password !== params.password_2) reject ('Passwords do not match')
+
+                            hasher.compare(params.oldPassword, user.password)
+                                .then(result =>{
+                                    if(!result) reject('Old password not correct')
+
+                                    hasher.create(params.password)
+                                        .then(hash => {
+                                            user.password = hash
+
+                                            if (params.name !== '') user.profile.name = params.name
+                                            if (params.address !== '') user.address = params.address
+                                            if (params.email !== '') user.email = params.email
+
+                                            user.save()
+                                                .then(user => {
+                                                    resolve(user)
+                                                })
+                                                .catch(err => {
+                                                    reject(err)
+                                                })
+                                        })
+                                        .catch(err => {
+                                            reject(err)
+                                        })
+                                })
+                                .catch(err =>{
+                                    reject(err)
+                                })
+
+                    } else {
+                        if (params.name !== '') user.profile.name = params.name
+                        if (params.address !== '') user.address = params.address
+                        if (params.email !== '') user.email = params.email
+
+                        user.save()
+                            .then(user => {
+                                resolve(user)
                             })
                             .catch(err => {
                                 reject(err)
                             })
                     }
-                    user.save()
-                        .then(user => {
-                            resolve(user)
-                        })
-                        .catch(err => {
-                            reject(err)
-                        })
+
+                   
                 })
         })
 

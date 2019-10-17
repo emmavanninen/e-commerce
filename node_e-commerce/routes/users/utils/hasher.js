@@ -16,5 +16,6 @@ module.exports = {
       });
     });
   },
+  compare: (str, hash) => bcrypt.compare(str, hash)
 
 };
