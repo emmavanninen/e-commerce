@@ -119,22 +119,6 @@ module.exports = {
         })
 
     }
-    //     editProfile: (req, res, next) => {
-    
-    //         User.findByIdAndUpdate(id)
-    
-    // console.log(id);
-    
-    
-                // .then(user =>{
-                //     console.log(user);
-                    
-                // user.profile.name = req.body.name
-                // user.email = req.body.email
-                // user.address = req.body.address
-                // user.password = req.body.password
-                // })
-        // }
 
 
     /// Don't need anymore bc using passport
