@@ -2,6 +2,7 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const hasher = require('../utils/hasher')
+const gravatar = require('../utils/gravatar')
 
 module.exports = {
     signup: (req, res, next) => {
@@ -21,9 +22,12 @@ module.exports = {
                     return res.redirect(301, '/api/users/signup')
                 } else {
                     const newUser = new User
-
                     newUser.email = req.body.email
                     newUser.profile.name = req.body.name
+                    newUser.profile.picture =gravatar(req.body.email)
+
+
+
                     hasher.create(req.body.password)
                         .then(hash => {
                             newUser.password = hash

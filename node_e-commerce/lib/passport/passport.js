@@ -36,23 +36,23 @@ passport.deserializeUser(function(id, done) {
          })
      })
      passport.use('local-login', new LocalStrategy({
-         usernameField: 'email',
-         passwordField: 'password',
-         passReqToCallback: true
-     }, (req, email, password, done)=>{
+             usernameField: 'email',
+             passwordField: 'password',
+             passReqToCallback: true
+    }, (req, email, password, done)=>{
         User.findOne({email: email}, (error, user) =>{
             if(error) return done(error, null)
             
             if(!user) return done(null, false, req.flash('loginMsg', 'User does not exist!'))
 
-            bcrypt.compare(password, user.password)
-                .then(result =>{
-                    if (!result) {
-                        return done(null, false, req.flash('loginMsg', 'Wrong password!'))
-                        } else {
-                            return done(null, user)
-                        }
-                })
+            // bcrypt.compare(password, user.password)
+            //     .then(result =>{
+            //         if (!result) {
+            //             return done(null, false, req.flash('loginMsg', 'Wrong password!'))
+            //             } else {
+            //                 return done(null, user)
+            //             }
+            //     })
                 .catch(error => {
                     throw error
                 })
@@ -60,3 +60,11 @@ passport.deserializeUser(function(id, done) {
         })
      )
  }
+
+
+//Homework: maybe put this somewhere is doesn't crash the app
+// passport.use('edit-password', new LocalStrategy({
+//     oldpasswordField: 'oldpassword',
+//     newpasswordField: 'newpassword',
+//     passReqToCallback: true
+// }),

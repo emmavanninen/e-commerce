@@ -49,8 +49,12 @@ router.get('/edit-profile', (req, res) => {
     res.render('account/profile')
 })
 
-router.put('/edit-profile', (req, res) => {
-    console.log(`!!!!:`);
+router.put('/edit-profile', passport.authenticate('edit-password', {
+    successRedirect: '/api/users/edit-profile',
+    failureRedirect: '/api/users/edit-profile',
+    failureFlash: true
+
+}), (req, res) => {
     
    userController.editProfile(req.body, req.user._id)
     .then(user => {
