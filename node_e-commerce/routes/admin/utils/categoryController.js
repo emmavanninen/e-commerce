@@ -1,7 +1,8 @@
 const Category = require('../../products/models/Catergory')
 
 
-const categoryValidation = (req, res, next) => {
+module.exports = {
+    categoryValidation: (req, res, next) => {
        req.checkBody('name', 'Category cannot be empty').notEmpty()
 
    const errorValidate = req.validationErrors()
@@ -42,6 +43,18 @@ const categoryValidation = (req, res, next) => {
                 throw err
             })
         }
-}
+    },
+    getAllCategories: (req, res) => {
+        Category.find({})
+            .then(categories =>{
+                console.log(categories);
+                
+                res.render('categories/create-fake-product', {categories: categories})
+            })
+            .catch(error => {
+                req.flash('errors', error)
+            })
 
-module.exports = categoryValidation
+
+    }   
+}

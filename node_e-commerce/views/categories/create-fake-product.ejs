@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<% include ../partials/account %>
+<link rel="stylesheet" href="/stylesheets/style.css" />
+
+<body style="padding: 100px;">
+<% include ../partials/nav %>
+
+    <% for (let s of success) { %>
+    <div class="alert alert-success">
+        <%= s %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+    </div>
+    <% } %>
+
+
+
+    <ul class="list-group">
+<% for(let i of categories) {%>
+    <% let link = `/${i.name}/${i._id}` %>
+        <li class="list-group-item">
+            <a href="/api/admin/create-fake-product<%=link %>"> <%= i.name%></a>
+        </li>
+        <% } %>
+    </ul>
+
+</body>
+<% include ../partials/footer %>
+</html>
