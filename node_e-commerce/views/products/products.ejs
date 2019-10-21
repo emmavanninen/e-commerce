@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<% include ../partials/account %>
+<link rel="stylesheet" href="/stylesheets/style.css" />
+
+<body>
+    <% include ../partials/nav %>
+
+
+    <div class="row">
+
+        <% for(let i of products) {%>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <a href="/api/products/<%= i.id %>">
+                    <img class="card-img-top" src="<%= i.image%>" alt="Card image cap" />
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Name: <%= i.name%></h5>
+                    <p class="card-text">Category: <%= i.category%></p>
+                    <p class="card-text">$ <%= i.price%></p>
+                    <a href="/api/product/<%= i.id %>" class="btn btn-primary">Shop</a>
+                </div>
+            </div>
+        </div>
+        <% }%>
+    </div>
+</body>
+<% include ../partials/footer %>
+</html>

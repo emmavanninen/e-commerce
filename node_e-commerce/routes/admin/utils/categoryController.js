@@ -47,8 +47,6 @@ module.exports = {
     getAllCategories: (req, res) => {
         Category.find({})
             .then(categories =>{
-                console.log(categories);
-                
                 res.render('categories/create-fake-product', {categories: categories})
             })
             .catch(error => {
