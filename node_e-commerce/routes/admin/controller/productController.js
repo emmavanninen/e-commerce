@@ -4,6 +4,9 @@ const Product = require('../../products/models/Product')
 module.exports = {
     getAllProducts: (req, res) => {
         Product.find()
+        // populate + exec using with ObjectId to pull category object from categories to target product object (Product.js)
+        .populate('category')
+        .exec()
         .then(products => {
                 res.render('products/products', { products: products })
             })
@@ -25,4 +28,15 @@ module.exports = {
 
     },
 
+    getByCategory: (req, res) => {
+        Product.find({category: req.params.id})
+            .populate('category')
+            .exec()
+            .then(products => {
+                res.render('products/products', { products: products })
+            })
+            .catch(err => {
+                throw err
+            })
+    }
 }

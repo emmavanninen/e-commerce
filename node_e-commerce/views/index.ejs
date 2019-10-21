@@ -39,6 +39,17 @@
     <% include ./partials/main %>
     <% include ./partials/footer %>
 
+    <p id="testid">poop</p>
+    
+    <script>
+        // $ calls jQuery
+        $(document).on('click', '#testid', (event) =>{
+            $('#testid').text('updated')
+        })
+        // console.log(`poop: `, $('#testid'));
+        
+    </script>
+
 </body>
 
 </html>

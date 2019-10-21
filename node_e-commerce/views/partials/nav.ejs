@@ -27,7 +27,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <% for(let i of categories) {%>
-            <a class="dropdown-item" href="/api/admin/create-fake-product/<%= i.name%>/<%=i._id %>"> <%= i.name%></a>
+            <a class="dropdown-item" href="/api/products/getproductbycategory/<%= i.id %>"> <%= i.name%></a>
             <% } %>    
                 </div>
             </div>
