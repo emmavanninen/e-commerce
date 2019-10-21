@@ -14,9 +14,9 @@ module.exports = {
     
     getOneProduct: (req, res) => {
         
-        Product.findById(id)
-            .then(products => {
-                res.render('products/product/:id', { products: products })
+        Product.findById(req.params.id)
+            .then(product => {
+                res.render('products/product', { product: product })
             })
             .catch(err => {
                 throw err

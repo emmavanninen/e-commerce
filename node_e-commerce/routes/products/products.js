@@ -9,7 +9,7 @@ const productController = require('../admin/controller/productController')
 
 router.get('/', productController.getAllProducts)
 
-router.get('/product', productController.getOneProduct)
+router.get('/:id', productController.getOneProduct)
 
 
 
