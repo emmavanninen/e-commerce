@@ -13,4 +13,6 @@ router.get('/:id', productController.getOneProduct)
 
 router.get('/getproductbycategory/:id', productController.getByCategory)
 
+router.get('/deleteproduct', productController.deleteProduct)
+
 module.exports = router

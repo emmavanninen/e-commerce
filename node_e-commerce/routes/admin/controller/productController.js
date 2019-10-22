@@ -38,5 +38,15 @@ module.exports = {
             .catch(err => {
                 throw err
             })
+    },
+    deleteProduct: (req, res) => {
+        Product.remove({ _id: req.params.id })
+            .then(products => {
+                res.render('products/products', { products: products })
+            })
+            .catch(err => {
+                throw err
+            })
+
     }
 }
