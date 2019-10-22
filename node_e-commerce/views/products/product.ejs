@@ -28,7 +28,7 @@
                     <input type="hidden" name='priceHidden' id='priceHidden' value="<%= product.price %>">
 
                     <input type="text" class="form-control" name='item' id='item' value="<%= product.name %>">
-                    <input type="text" class="form-control" name='priceValue' id='priceValue' value="<%= product.price %>.00">
+                    <input type="text" class="form-control" name='priceValue' id='priceValue' value="<%= product.price %>">
                 </div>
 
                 <% if (user) { %>
@@ -43,7 +43,11 @@
         </div>
 
     </div>
+
+<script src="/javascripts/addAndMinusProduct.js"></script>
+
 </body>
 <% include ../partials/footer %>
+
 
 </html>
