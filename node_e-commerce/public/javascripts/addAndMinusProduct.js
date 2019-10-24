@@ -12,15 +12,14 @@
 //             total--;
 //             price -= ogPrice
 //             $('#priceValue').val(price.toFixed(2))
-//             $('#total').val(total).text(total);
+//             $('#total').text(total);
 //         })
                 
 //         $('#plus').click(function () { 
 //             total++;
 //             price += ogPrice
 //             $('#priceValue').val(price.toFixed(2))
-//             $('#total').val(total).text(total);
-//             console.log($('#total').val());
+//             $('#total').text(total);
             
 //         })
 //     })

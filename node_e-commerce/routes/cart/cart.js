@@ -4,11 +4,13 @@ const Cart = require('../cart/models/Cart');
 const cartController = require('./controllers/cartController')
 
 
-router.get('/', (req, res) => {
-   res.send('poop')
-})
+// router.get('/', (req, res) => {
+//    res.send('poop')
+// })
 
 router.post('/product', cartController.addProductToCart)
+
+router.get('/', cartController.getCart)
 
 
 module.exports = router
