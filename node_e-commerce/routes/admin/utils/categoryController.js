@@ -17,14 +17,12 @@ module.exports = {
 
                 if (category) {
                     req.flash('errors', `Category '${category.name}' already exists`)
-                    console.log(res.locals);
-                    console.log(`hit`);
+
 
                     res.redirect('/api/admin/add-category')
                 } else {
                     const newCategory = new Category
                     newCategory.name = req.body.name
-                    console.log(`whatshappeningdude `, newCategory);
 
                     newCategory
                         .save()

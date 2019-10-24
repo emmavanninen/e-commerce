@@ -1,5 +1,7 @@
 
 const Product = require('../../products/models/Product')
+const paginate = require('../../products/utils/pagination')
+
 
 module.exports = {
     getAllProducts: (req, res) => {
@@ -40,6 +42,7 @@ module.exports = {
             })
     },
     // deleteProduct: (req, res) => {
+
     //     Product.remove({ _id: req.params.id })
     //         .then(products => {
     //             res.render('products/products', { products: products })
@@ -48,5 +51,15 @@ module.exports = {
     //             throw err
     //         })
 
-    // }
+    // },
+    
+    getPageIfLoggedIn: (req, res, next) => {
+        if(req.user){
+         paginate(req, res, next)
+       } else {
+           res.render('index')
+        }
+    },
+
+    
 }

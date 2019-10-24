@@ -1,3 +1,5 @@
+
+
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href="/">Shop Immersives</a>
   <button
@@ -72,11 +74,23 @@
           <span style="color: pink"><%= user.profile.name %></span></a
         >
       </li>
+
+      <li class="nav-item">
+        <a href="/api/cart">
+        <span class="fa-stack has-badge" data-count=<%=  itemsInCart %> >
+    <i class="fas fa-poo"></i>
+    </span></a>
+      </li>
+
       <li class="nav-item">
         <a href="/api/users/logout" class="nav-link">Log out</a>
       </li>
 
       <% } %>
+
+    <!-- <li><%=  itemsInCart %></li> -->
     </ul>
   </div>
 </nav>
+
+
