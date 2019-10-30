@@ -47,5 +47,21 @@ module.exports = {
           .catch(err => {
               throw err
           })
+  },
+  removeProduct: (req, res) => {
+      Cart.findOne({ user: req.user }, (err, cart) => {
+            if (err) throw err
+
+        //! Mongoose method pull object from array
+            cart.items.pull(req.body.item)
+
+            cart.save( () => {
+                req.flash('success', 'Product deleted from the cart')
+                res.redirect('/api/cart')
+            })
+
+
+        })
+        
   }
 };

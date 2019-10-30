@@ -10,7 +10,14 @@ let UserSchema = new mongoose.Schema({
         picture: {type: String, default: ''},
     },
     address: {type: String, default: ''},
+    history: [
+        {
+            item: { type: mongoose.Schema.Types.ObjectId, ref: 'product' },
+            paid: { type: Number, default: 0 }
+        }
+    ],
     timestamp: {type: String, default: () => moment().format('dddd, MMMM Do YYYY, h:mm:ss a')},
+
 })
 
 module.exports = mongoose.model('User', UserSchema)
